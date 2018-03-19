@@ -1,7 +1,8 @@
 const isDelete = (strOld, strNew) => {
   const arrOld = strOld.split("")
   const arrNew = strNew.split("")
-  let [indexLeft, indexRight] = [null, null]
+  let indexLeft = null
+  let indexRight = null
 
   if (strOld === strNew || strOld.length < strNew.length) {
     return false
