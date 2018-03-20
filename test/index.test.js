@@ -9,23 +9,22 @@ localVue.use(VueOnDelete)
 describe('DOM测试', () => {
   test('输入框不为空时按下删除/退格键', () => {
     const wrapper = mount(Component, { localVue, attachToDocument: true })
-    wrapper.find('input').element.focus()
-    wrapper.trigger('keydown', {
-      which: 65,
-    })
-    wrapper.trigger('keydown', {
-      which: 66,
-    })
-    wrapper.trigger('keydown.delete')
-
+    const input = wrapper.find('input')
+    wrapper.setData({ value: '123' })
+    input.trigger('focus')
+    wrapper.setData({ value: '12' })
+    // TODO 直接触发 keydown 无法触发 input 事件
+    input.trigger('input')
     expect(wrapper.vm.count).toBe(1)
   })
 
   test('输入框为空时按下删除/退格键', () => {
-    const wrapper = mount(Component, { localVue })
-    wrapper.find('input').element.focus()
-    wrapper.trigger('keydown.delete')
-
+    const wrapper = mount(Component, { localVue, attachToDocument: true })
+    const input = wrapper.find('input')
+    wrapper.setData({ value: '' })
+    input.trigger('focus')
+    wrapper.setData({ value: '' })
+    input.trigger('input')
     expect(wrapper.vm.count).toBe(0)
   })
 
