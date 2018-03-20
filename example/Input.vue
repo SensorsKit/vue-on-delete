@@ -1,12 +1,12 @@
+<template>
+  <div>
+    <input autofocus type="text" v-on-delete="onDelete">
+    <p>你刚刚删除了 {{count}} 次。</p>
+  </div>
+</template>
+
 <script>
 export default {
-  template: `
-    <div>
-      <input type="text" v-on-delete="onDelete">
-      <p>你刚刚删除了 {{count}} 次。</p>
-    </div>
-  `,
-
   data() {
     return {
       count: 0
