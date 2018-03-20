@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input autofocus type="text" v-on-delete="onDelete">
+    <input autofocus v-model="value" type="text" v-on-delete="onDelete">
     <p>你刚刚删除了 {{count}} 次。</p>
   </div>
 </template>
@@ -9,6 +9,7 @@
 export default {
   data() {
     return {
+      value: '',
       count: 0
     }
   },
