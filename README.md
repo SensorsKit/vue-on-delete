@@ -1,6 +1,6 @@
 # vue-on-delete
 
-[![npm (scoped)](https://img.shields.io/npm/v/@sensorskit/vue-on-delete.svg)](@sensorskit/vue-on-delete)
+[![npm (scoped)](https://img.shields.io/npm/v/@sensorskit/vue-on-delete.svg)](https://www.npmjs.com/package/@sensorskit/vue-on-delete)
  [![Build Status](https://travis-ci.org/SensorsKit/vue-on-delete.svg?branch=master)](https://travis-ci.org/SensorsKit/vue-on-delete)
 
 > 通用的「是否删除」监听逻辑：**输入框字符减少的同时没有新增字符**
