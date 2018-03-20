@@ -1,5 +1,5 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import Component from '../example/Component'
+import Component from '../example/Input'
 import isDelete from '../src/isDelete'
 import VueOnDelete from '../src'
 
