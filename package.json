@@ -1,5 +1,5 @@
 {
-  "name": "vue-on-delete",
+  "name": "@sensorskit/vue-on-delete",
   "description": "vue custom directive of delete binding",
   "version": "0.0.1",
   "author": "newraina <newraina@users.noreply.github.com>",
