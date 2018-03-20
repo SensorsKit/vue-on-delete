@@ -1,5 +1,5 @@
 const OnDeletePlugin = {}
-const noop = () => { }
+const noop = () => {}
 import isDelete from './isDelete'
 
 const log = {
@@ -12,7 +12,7 @@ OnDeletePlugin.install = function(Vue, options) {
   let strOld = ''
   let strNew = ''
 
-  const onKeyDown = (el) => {
+  const onKeyDown = el => {
     strOld = el.value
   }
 
@@ -32,26 +32,40 @@ OnDeletePlugin.install = function(Vue, options) {
       }
 
       // 逻辑...
-      el.addEventListener('keydown', function() {
-        onKeyDown(el)
-      }, false)
-      el.addEventListener('keyup', function () {
-        onKeyUp(el, binding)
-      }, false)
+      el.addEventListener(
+        'keydown',
+        function() {
+          onKeyDown(el)
+        },
+        false
+      )
+      el.addEventListener(
+        'keyup',
+        function() {
+          onKeyUp(el, binding)
+        },
+        false
+      )
     },
 
-    update(el, binding, vnode, oldVnode) {
-
-    },
+    update(el, binding, vnode, oldVnode) {},
 
     unbind(el, binding, vnode) {
       // 解除事件监听
-      el.removeEventListener('keydown', function() {
-        onKeyDown(el)
-      }, false)
-      el.removeEventListener('keyup', function () {
-        onKeyUp(el, binding)
-      }, false)
+      el.removeEventListener(
+        'keydown',
+        function() {
+          onKeyDown(el)
+        },
+        false
+      )
+      el.removeEventListener(
+        'keyup',
+        function() {
+          onKeyUp(el, binding)
+        },
+        false
+      )
     }
   })
 }

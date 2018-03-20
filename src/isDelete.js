@@ -1,6 +1,6 @@
 const isDelete = (strOld, strNew) => {
-  const arrOld = strOld.split("")
-  const arrNew = strNew.split("")
+  const arrOld = strOld.split('')
+  const arrNew = strNew.split('')
   let indexLeft = null
   let indexRight = null
 
@@ -18,14 +18,14 @@ const isDelete = (strOld, strNew) => {
     }
 
     for (let i = 1; i <= arrNew.length; i++) {
-      if (arrNew[arrNew.length-i] !== arrOld[arrOld.length-i]) {
+      if (arrNew[arrNew.length - i] !== arrOld[arrOld.length - i]) {
         //记录右遍历第一次不相等字符的index
-        indexRight = arrNew.length-i
+        indexRight = arrNew.length - i
         break
       }
     }
 
-    return(indexRight - indexLeft < 0 )
+    return indexRight - indexLeft < 0
   }
 }
 
