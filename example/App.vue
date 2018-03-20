@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Input from './Component'
+import Input from './Input'
 
 export default {
   name: 'app',
