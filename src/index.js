@@ -9,18 +9,19 @@ const log = {
 }
 
 OnDeletePlugin.install = function(Vue, options) {
-  let strOld = ''
-  let strNew = ''
+  let strOld = null
+  let strNew = null
 
-  const onKeyDown = el => {
+  const onFocus = (el) => {
     strOld = el.value
   }
 
-  const onKeyUp = (el, binding) => {
+  const onInput = (el, binding) => {
     strNew = el.value
     if (isDelete(strOld, strNew)) {
       binding.value()
     }
+    strOld = strNew
   }
 
   Vue.directive('on-delete', {
@@ -33,16 +34,17 @@ OnDeletePlugin.install = function(Vue, options) {
 
       // 逻辑...
       el.addEventListener(
-        'keydown',
+        'focus',
         function() {
-          onKeyDown(el)
+          onFocus(el)
         },
         false
       )
+
       el.addEventListener(
-        'keyup',
+        'input',
         function() {
-          onKeyUp(el, binding)
+          onInput(el, binding)
         },
         false
       )
@@ -53,16 +55,17 @@ OnDeletePlugin.install = function(Vue, options) {
     unbind(el, binding, vnode) {
       // 解除事件监听
       el.removeEventListener(
-        'keydown',
+        'focus',
         function() {
-          onKeyDown(el)
+          onFocus(el)
         },
         false
       )
+
       el.removeEventListener(
-        'keyup',
+        'input',
         function() {
-          onKeyUp(el, binding)
+          onInput(el, binding)
         },
         false
       )
