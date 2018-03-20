@@ -1,18 +1,37 @@
 # vue-on-delete
 
-> A Vue.js project
+> 通用的「是否删除」监听逻辑：**输入框字符减少的同时没有新增字符**
+>
+> 示例：
+>   - 输入框里有字符存在时，按下了退格键，算删除
+>   - 输入框里没有字符，按下退格键，不算删除
+>   - 输入框里选中了一段文字，按下退格键，算删除
+>   - 输入框里选中了一段文字，键入别的字符，此时选中文字会被替换掉，不算删除
 
-## Build Setup
+## 使用
 
 ``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+yarn add @sensorskit/vue-on-delete
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+在 Vue.js 项目的入口处引入：
+
+```js
+import VueOnDelete from '@sensorskit/vue-on-delete'
+
+Vue.use(VueOnDelete)
+
+// 如果需要自定义选项
+Vue.use(VueOnDelete, {
+  directive： 'your-custom-directive-name'
+})
+```
+
+在需要绑定删除逻辑的地方引入自定义指令：
+
+```html
+<input type="text" v-on-delete="onDelete">
+
+<!-- 如果自定义了directive name -->
+<input type="text" v-your-custom-name="onDelete">
+```
