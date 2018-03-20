@@ -11,6 +11,8 @@ const log = {
 OnDeletePlugin.install = function(Vue, options) {
   let strOld = null
   let strNew = null
+  let listenerFocus = null
+  let listenerInput = null
 
   const onFocus = (el) => {
     strOld = el.value
@@ -36,6 +38,7 @@ OnDeletePlugin.install = function(Vue, options) {
       el.addEventListener(
         'focus',
         function() {
+          listenerFocus = arguments.callee
           onFocus(el)
         },
         false
@@ -44,6 +47,7 @@ OnDeletePlugin.install = function(Vue, options) {
       el.addEventListener(
         'input',
         function() {
+          listenerInput = arguments.callee
           onInput(el, binding)
         },
         false
@@ -56,17 +60,13 @@ OnDeletePlugin.install = function(Vue, options) {
       // 解除事件监听
       el.removeEventListener(
         'focus',
-        function() {
-          onFocus(el)
-        },
+        listenerFocus,
         false
       )
 
       el.removeEventListener(
         'input',
-        function() {
-          onInput(el, binding)
-        },
+        listenerInput,
         false
       )
     }
