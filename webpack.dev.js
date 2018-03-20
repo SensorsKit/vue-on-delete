@@ -2,11 +2,12 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-  entry: './src/index.js',
+  mode: 'development',
+  entry: './example/main.js',
   output: {
-    path: path.resolve(__dirname, './lib'),
-    publicPath: '/lib/',
-    filename: 'vue-on-delete.js'
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/dist/',
+    filename: 'build.js'
   },
   module: {
     rules: [
@@ -27,6 +28,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        type: "javascript/esm",
         loader: 'babel-loader',
         exclude: /node_modules/
       },
@@ -54,25 +56,4 @@ module.exports = {
     hints: false
   },
   devtool: '#eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = false
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
 }
