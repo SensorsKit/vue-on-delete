@@ -11,17 +11,15 @@ const log = {
 OnDeletePlugin.install = function(Vue, options) {
   let strOld = ''
   let strNew = ''
-  let _el = null
-  let _binding = null
 
-  const onKeyDown = () => {
-    strOld = _el.value
+  const onKeyDown = (el) => {
+    strOld = el.value
   }
 
-  const onKeyUp = () => {
-    strNew = _el.value
+  const onKeyUp = (el, binding) => {
+    strNew = el.value
     if (isDelete(strOld, strNew)) {
-      _binding.value()
+      binding.value()
     }
   }
 
@@ -34,10 +32,12 @@ OnDeletePlugin.install = function(Vue, options) {
       }
 
       // 逻辑...
-      _el = el
-      _binding = binding
-      el.addEventListener('keydown', onKeyDown, false)
-      el.addEventListener('keyup', onKeyUp, false)
+      el.addEventListener('keydown', function() {
+        onKeyDown(el)
+      }, false)
+      el.addEventListener('keyup', function () {
+        onKeyUp(el, binding)
+      }, false)
     },
 
     update(el, binding, vnode, oldVnode) {
@@ -46,8 +46,12 @@ OnDeletePlugin.install = function(Vue, options) {
 
     unbind(el, binding, vnode) {
       // 解除事件监听
-      el.removeEventListener('keydown', onKeyDown, false)
-      el.removeEventListener('keyup', onKeyUp, false)
+      el.removeEventListener('keydown', function() {
+        onKeyDown(el)
+      }, false)
+      el.removeEventListener('keyup', function () {
+        onKeyUp(el, binding)
+      }, false)
     }
   })
 }
