@@ -1,22 +1,40 @@
+import isDelete from './isDelete'
+
 const OnDeletePlugin = {}
 const noop = () => {}
-import isDelete from './isDelete'
+const registeredHandlers = []
 
 const log = {
   e(...args) {
     console.error('[vue-on-delete]', ...args)
   }
 }
+const on = (el, eventName, callback) => {
+  el.addEventListener(eventName, callback, false)
+  return {
+    el,
+    destroy: () => el.removeEventListener(eventName, callback, false)
+  }
+}
 
-OnDeletePlugin.install = function(Vue, options) {
+const bind = (el, binding, vnode) => {
+  const onDelete = binding.value
+
+  if (typeof onDelete !== 'function') {
+    log.e('指令需要传入一个函数！')
+    return
+  }
+
+  unbind(el)
+
   let strOld = null
   let strNew = null
 
-  const onFocus = (el) => {
+  const onFocus = () => {
     strOld = el.value
   }
 
-  const onInput = (el, binding) => {
+  const onInput = () => {
     strNew = el.value
     if (isDelete(strOld, strNew)) {
       binding.value()
@@ -24,52 +42,42 @@ OnDeletePlugin.install = function(Vue, options) {
     strOld = strNew
   }
 
-  Vue.directive('on-delete', {
-    bind(el, binding, vnode) {
-      const onDelete = binding.value
-      if (typeof onDelete !== 'function') {
-        log.e('指令需要传入一个函数！')
-        return
-      }
+  registeredHandlers.push(
+    on(el, 'focus', onFocus),
+    on(el, 'input', onInput)
+  )
+}
 
-      // 逻辑...
-      el.addEventListener(
-        'focus',
-        function() {
-          onFocus(el)
-        },
-        false
-      )
+const unbind = el => {
+  if (!registeredHandlers.length) {
+    return
+  }
 
-      el.addEventListener(
-        'input',
-        function() {
-          onInput(el, binding)
-        },
-        false
-      )
-    },
+  let index = registeredHandlers.length - 1
 
-    update(el, binding, vnode, oldVnode) {},
+  while (index >= 0) {
+    const handler = registeredHandlers[index]
 
-    unbind(el, binding, vnode) {
-      // 解除事件监听
-      el.removeEventListener(
-        'focus',
-        function() {
-          onFocus(el)
-        },
-        false
-      )
-
-      el.removeEventListener(
-        'input',
-        function() {
-          onInput(el, binding)
-        },
-        false
-      )
+    if (handler.el === el) {
+      handler.destroy()
+      registeredHandlers.splice(index, 1)
+      index -= 1
     }
+  }
+}
+
+const update = (el, binding) => {
+  if (binding.value === binding.oldValue) {
+    return
+  }
+  bind(el, binding)
+}
+
+OnDeletePlugin.install = function(Vue, options) {
+  Vue.directive('on-delete', {
+    bind,
+    update,
+    unbind
   })
 }
 
