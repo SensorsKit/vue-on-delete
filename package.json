@@ -1,7 +1,7 @@
 {
   "name": "vue-on-delete",
   "description": "vue custom directive of delete binding",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "newraina <newraina@users.noreply.github.com>",
   "main": "lib/vue-on-delete.js",
   "license": "MIT",
