@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const HTMLPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -49,12 +50,19 @@ module.exports = {
   },
   devServer: {
     host: '0.0.0.0',
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/dist/'
+    },
     noInfo: true,
     overlay: true
   },
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new HTMLPlugin({
+      template: './example/index.html',
+    })
+  ]
 }
