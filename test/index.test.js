@@ -7,10 +7,11 @@ const localVue = createLocalVue()
 localVue.use(VueOnDelete)
 
 describe('DOM测试', () => {
+  const wrapper = mount(Component, { localVue })
+  const input = wrapper.find('input')
+
   test('输入框不为空时按下删除/退格键', () => {
-    const wrapper = mount(Component, { localVue, attachToDocument: true })
-    const input = wrapper.find('input')
-    wrapper.setData({ value: '123' })
+    wrapper.setData({ value: '123', count: 0 })
     input.trigger('focus')
     wrapper.setData({ value: '12' })
     // TODO 直接触发 keydown 无法触发 input 事件
@@ -19,13 +20,12 @@ describe('DOM测试', () => {
   })
 
   test('输入框为空时按下删除/退格键', () => {
-    const wrapper = mount(Component, { localVue, attachToDocument: true })
-    const input = wrapper.find('input')
-    wrapper.setData({ value: '' })
+    wrapper.setData({ value: '', count: 0 })
     input.trigger('focus')
     wrapper.setData({ value: '' })
     input.trigger('input')
     expect(wrapper.vm.count).toBe(0)
+
   })
 
   // TODO 暂时没找到在 Jest 中选中文本的办法
