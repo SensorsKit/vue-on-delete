@@ -46,6 +46,7 @@ body {
   color: #2c3e50;
   margin: 60px auto 0;
   width: 100vw;
+  max-width: 500px;
 }
 
 h1,
