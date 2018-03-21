@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "author": "newraina <newraina@users.noreply.github.com>",
   "main": "lib/vue-on-delete.js",
+  "repository": "github:SensorsKit/vue-on-delete",
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
