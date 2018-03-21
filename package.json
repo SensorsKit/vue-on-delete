@@ -11,7 +11,7 @@
     "dev": "webpack-dev-server --config webpack.dev.js --open --hot",
     "build": "webpack --config webpack.build.js",
     "build:example": "webpack --config webpack.example.js",
-    "publish": "npm run build",
+    "prepublishOnly": "npm run build",
     "deploy": "npm run build:example && gh-pages -d dist",
     "test": "jest",
     "commit": "git-cz",
