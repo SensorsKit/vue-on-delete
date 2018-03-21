@@ -1,7 +1,6 @@
 import isDelete from './isDelete'
 
 const OnDeletePlugin = {}
-const noop = () => {}
 const registeredHandlers = []
 
 const log = {
@@ -64,7 +63,7 @@ const bind = (el, binding, vnode) => {
     on(el, 'focus', onFocus),
     on(el, 'input', onInput),
     on(el, 'compositionstart', onCompositionstart),
-    on(el, 'compositionend', onCompositionend),
+    on(el, 'compositionend', onCompositionend)
   )
 }
 
