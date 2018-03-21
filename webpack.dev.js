@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        type: "javascript/esm",
+        type: "javascript/auto",
         loader: 'babel-loader',
         exclude: /node_modules/
       },
