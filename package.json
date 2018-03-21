@@ -10,7 +10,9 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js --open --hot",
     "build": "webpack --config webpack.build.js",
+    "build:example": "webpack --config webpack.example.js",
     "publish": "npm run build",
+    "deploy": "npm run build:example && gh-pages -d dist",
     "test": "jest",
     "commit": "git-cz",
     "precommit": "lint-staged"
@@ -61,6 +63,8 @@
     "css-loader": "^0.28.7",
     "cz-conventional-changelog": "^2.1.0",
     "file-loader": "^1.1.4",
+    "gh-pages": "^1.1.0",
+    "html-webpack-plugin": "webpack-contrib/html-webpack-plugin",
     "jest": "^22.4.2",
     "lint-staged": "^7.0.0",
     "vue": "^2.5.11",
