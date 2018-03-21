@@ -61,8 +61,9 @@ const unbind = el => {
     if (handler.el === el) {
       handler.destroy()
       registeredHandlers.splice(index, 1)
-      index -= 1
     }
+
+    index -= 1
   }
 }
 
