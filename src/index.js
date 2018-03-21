@@ -74,7 +74,8 @@ const update = (el, binding) => {
 }
 
 OnDeletePlugin.install = function(Vue, options) {
-  Vue.directive('on-delete', {
+  const directiveName = (options && options.directive) ? options.directive : 'on-delete'
+  Vue.directive(directiveName, {
     bind,
     update,
     unbind
