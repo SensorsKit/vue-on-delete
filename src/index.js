@@ -30,11 +30,22 @@ const bind = (el, binding, vnode) => {
   let strOld = null
   let strNew = null
 
+  /**
+   * ios 输入中文时 会触发多次 input 事件
+   * compositionstart: 该事件在用户开始进行非直接输入的时候触发，而在非直接输入结束
+   * compositionend: 该事件在用户输入完成点击候选词或确认按钮时触发
+   * 当用户在上述两个事件之间时，表示未完成中文输入，还在候选词阶段，此时设置 isInputLocked 为 true
+   */
+  let isInputLocked = false
+
   const onFocus = () => {
     strOld = el.value
   }
 
   const onInput = () => {
+    if (isInputLocked) {
+      return
+    }
     strNew = el.value
     if (isDelete(strOld, strNew)) {
       binding.value()
@@ -42,9 +53,18 @@ const bind = (el, binding, vnode) => {
     strOld = strNew
   }
 
+  const onCompositionstart = () => {
+    isInputLocked = true
+  }
+  const onCompositionend = () => {
+    isInputLocked = false
+  }
+
   registeredHandlers.push(
     on(el, 'focus', onFocus),
-    on(el, 'input', onInput)
+    on(el, 'input', onInput),
+    on(el, 'compositionstart', onCompositionstart),
+    on(el, 'compositionend', onCompositionend),
   )
 }
 
