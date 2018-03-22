@@ -26,7 +26,7 @@ const bind = (el, binding, vnode) => {
 
   unbind(el)
 
-  let strOld = null
+  let strOld = el.value
   let strNew = null
 
   /**
@@ -94,7 +94,8 @@ const update = (el, binding) => {
 }
 
 OnDeletePlugin.install = function(Vue, options) {
-  const directiveName = (options && options.directive) ? options.directive : 'on-delete'
+  const directiveName =
+    options && options.directive ? options.directive : 'on-delete'
   Vue.directive(directiveName, {
     bind,
     update,
