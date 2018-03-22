@@ -17,6 +17,7 @@ module.exports = {
     // React: false,
     // jQuery: false,
     // $: false
+    JSDOM: true
   },
   rules: {
     'space-before-function-paren': 0
