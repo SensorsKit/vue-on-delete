@@ -23,24 +23,20 @@
     }
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "vue"
-    ],
+    "moduleFileExtensions": ["js", "json", "vue"],
     "transform": {
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
-    "setupFiles": [
-      "./tool/mock.js"
-    ]
+    "setupFiles": ["./tool/mock.js"]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
   },
   "prettier": {
     "printWidth": 80,
@@ -72,6 +68,7 @@
     "file-loader": "^1.1.4",
     "gh-pages": "^1.1.0",
     "html-webpack-plugin": "webpack-contrib/html-webpack-plugin",
+    "husky": "^0.14.3",
     "jest": "^22.4.2",
     "lint-staged": "^7.0.0",
     "vconsole": "^3.1.0",
