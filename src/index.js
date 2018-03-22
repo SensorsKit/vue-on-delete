@@ -47,7 +47,7 @@ const bind = (el, binding, vnode) => {
     }
     strNew = el.value
     if (isDelete(strOld, strNew)) {
-      binding.value()
+      onDelete()
     }
     strOld = strNew
   }
