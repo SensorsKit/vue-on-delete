@@ -37,8 +37,8 @@
     ]
   },
   "lint-staged": {
-    "./**/*.js": [
-      "yarn prettier",
+    "*.{js,json,css,md}": [
+      "prettier --write",
       "git add"
     ]
   },
