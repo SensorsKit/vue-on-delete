@@ -1,4 +1,14 @@
 module.exports = {
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: 'module'
+  },
+  env: {
+    browser: true,
+    node: true,
+    jest: true
+  },
   extends: ['standard'],
   globals: {
     // 这里填入你的项目需要的全局变量
@@ -9,16 +19,6 @@ module.exports = {
     // $: false
   },
   rules: {
-    semi: [2, 'never'],
-    // @fixable 一个缩进必须用两个空格替代
-    'space-before-function-paren': 0,
-    indent: [
-      'error',
-      2,
-      {
-        SwitchCase: 1,
-        flatTernaryExpressions: true
-      }
-    ]
+    'space-before-function-paren': 0
   }
 }
