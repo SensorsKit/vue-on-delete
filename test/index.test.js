@@ -25,7 +25,6 @@ describe('DOM测试', () => {
     wrapper.setData({ value: '' })
     input.trigger('input')
     expect(wrapper.vm.count).toBe(0)
-
   })
 
   // TODO 暂时没找到在 Jest 中选中文本的办法
@@ -74,14 +73,12 @@ describe('逻辑测试', () => {
     expect(result).toBe(true)
   })
 
-
   test('新值不是旧值的子集 - 左侧增加', () => {
     const before = '12345'
     const after = '112345'
     const result = isDelete(before, after)
     expect(result).toBe(false)
   })
-
 
   test('新值不是旧值的子集 - 右侧增加', () => {
     const before = '12345'

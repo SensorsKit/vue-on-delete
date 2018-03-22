@@ -11,7 +11,7 @@ const isDelete = (strOld, strNew) => {
   } else {
     for (let i = 0; i < arrNew.length; i++) {
       if (arrNew[i] !== arrOld[i]) {
-        //记录左遍历第一次不相等字符的index
+        // 记录左遍历第一次不相等字符的index
         indexLeft = i
         break
       }
@@ -19,7 +19,7 @@ const isDelete = (strOld, strNew) => {
 
     for (let i = 1; i <= arrNew.length; i++) {
       if (arrNew[arrNew.length - i] !== arrOld[arrOld.length - i]) {
-        //记录右遍历第一次不相等字符的index
+        // 记录右遍历第一次不相等字符的index
         indexRight = arrNew.length - i
         break
       }
