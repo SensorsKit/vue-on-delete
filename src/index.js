@@ -1,4 +1,5 @@
 import isDelete from './isDelete'
+import { getInputFromEl } from './util'
 
 const OnDeletePlugin = {}
 const registeredHandlers = []
@@ -17,6 +18,12 @@ const on = (el, eventName, callback) => {
 }
 
 const bind = (el, binding, vnode) => {
+  el = getInputFromEl(el)
+
+  if (!el) {
+    return log.e('绑定的元素内未找到 input 标签！')
+  }
+
   const onDelete = binding.value
 
   if (typeof onDelete !== 'function') {
@@ -68,6 +75,8 @@ const bind = (el, binding, vnode) => {
 }
 
 const unbind = el => {
+  el = getInputFromEl(el)
+
   if (!registeredHandlers.length) {
     return
   }
