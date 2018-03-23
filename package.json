@@ -1,7 +1,7 @@
 {
   "name": "@sensorskit/vue-on-delete",
   "description": "vue custom directive of delete binding",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "newraina <newraina@users.noreply.github.com>",
   "main": "lib/vue-on-delete.js",
   "repository": "github:SensorsKit/vue-on-delete",
