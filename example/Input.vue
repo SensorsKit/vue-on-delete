@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <input autofocus v-model="value" type="text" v-on-delete="onDelete">
+    <input autofocus v-model="value" type="text" v-on-delete="{ method: onDelete, args }">
     <p>你刚刚删除了 {{count}} 次。</p>
+    <p v-if="isParams">指令带的参数是{{ args }}</p>
+    <p v-else>指令没有带参数</p>
     <span class="icon-delete" @click="$emit('remove')"></span>
   </div>
 </template>
@@ -11,13 +13,21 @@ export default {
   data() {
     return {
       value: '',
-      count: 0
+      count: 0,
+      isParams: false,
+      args: {
+        name: 'Max',
+        age: 29
+      }
     }
   },
 
   methods: {
-    onDelete() {
+    onDelete(params) {
       this.count++
+      if (params) {
+        this.isParams = true
+      }
     }
   }
 }
@@ -69,4 +79,3 @@ input:focus {
   cursor: pointer;
 }
 </style>
-
