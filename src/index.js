@@ -18,12 +18,14 @@ const on = (el, eventName, callback) => {
 
 const bind = (el, binding, vnode) => {
   const onDelete = binding.value
-
   if (typeof onDelete !== 'object' && typeof onDelete !== 'function') {
     log.e('指令需要传入一个函数或对象！')
     return
-  } else if (typeof onDelete === 'object' && !onDelete.method) {
-    log.e('指令对象必须包含method！')
+  } else if (
+    typeof onDelete === 'object' &&
+    typeof onDelete.method !== 'function'
+  ) {
+    log.e('指令对象必须包含method且method必须为函数！')
     return
   }
 
@@ -50,10 +52,14 @@ const bind = (el, binding, vnode) => {
     }
     strNew = el.value
     if (isDelete(strOld, strNew)) {
-      if (typeof onDelete === 'object' && onDelete.args) {
-        onDelete.method(onDelete.args)
-      } else if (typeof onDelete === 'object' && !onDelete.args) {
-        onDelete.method()
+      if (typeof onDelete === 'object') {
+        let { method, ...args } = onDelete
+
+        if (Object.keys(args).length === 0) {
+          onDelete.method()
+        } else {
+          onDelete.method(args)
+        }
       } else {
         onDelete()
       }
