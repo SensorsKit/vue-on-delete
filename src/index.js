@@ -50,8 +50,10 @@ const bind = (el, binding, vnode) => {
     }
     strNew = el.value
     if (isDelete(strOld, strNew)) {
-      if (typeof onDelete === 'object') {
+      if (typeof onDelete === 'object' && onDelete.args) {
         onDelete.method(onDelete.args)
+      } else if (typeof onDelete === 'object' && !onDelete.args) {
+        onDelete.method()
       } else {
         onDelete()
       }
@@ -94,7 +96,7 @@ const unbind = el => {
 }
 
 const update = (el, binding) => {
-  if (binding.value === binding.oldValue) {
+  if (binding.value.method === binding.oldValue.method) {
     return
   }
   bind(el, binding)
