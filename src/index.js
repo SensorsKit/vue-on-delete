@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-return */
 import isDelete from './isDelete'
 import { getInputFromEl } from './util'
 
@@ -25,9 +26,14 @@ const bind = (el, binding, vnode) => {
   }
 
   const onDelete = binding.value
-
-  if (typeof onDelete !== 'function') {
-    log.e('指令需要传入一个函数！')
+  if (typeof onDelete !== 'object' && typeof onDelete !== 'function') {
+    log.e('指令需要传入一个函数或对象！')
+    return
+  } else if (
+    typeof onDelete === 'object' &&
+    typeof onDelete.method !== 'function'
+  ) {
+    log.e('指令对象必须包含method且method必须为函数！')
     return
   }
 
@@ -54,7 +60,17 @@ const bind = (el, binding, vnode) => {
     }
     strNew = el.value
     if (isDelete(strOld, strNew)) {
-      onDelete()
+      if (typeof onDelete === 'object') {
+        let { method, ...args } = onDelete
+
+        if (Object.keys(args).length === 0) {
+          onDelete.method()
+        } else {
+          onDelete.method(args)
+        }
+      } else {
+        onDelete()
+      }
     }
     strOld = strNew
   }
@@ -97,6 +113,24 @@ const unbind = el => {
 
 const update = (el, binding) => {
   if (binding.value === binding.oldValue) {
+    return
+  } else if (
+    typeof binding.value === 'function' &&
+    typeof binding.oldValue === 'object' &&
+    binding.value === binding.oldValue.method
+  ) {
+    return
+  } else if (
+    typeof binding.oldValue === 'function' &&
+    typeof binding.value === 'object' &&
+    binding.oldValue === binding.value.method
+  ) {
+    return
+  } else if (
+    typeof binding.oldValue === 'object' &&
+    typeof binding.value === 'object' &&
+    binding.value.method === binding.oldValue.method
+  ) {
     return
   }
   bind(el, binding)
