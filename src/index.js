@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-return */
 import isDelete from './isDelete'
 
 const OnDeletePlugin = {}
@@ -105,8 +106,21 @@ const update = (el, binding) => {
   if (binding.value === binding.oldValue) {
     return
   } else if (
-    binding.value === binding.oldValue.method ||
-    binding.value.method === binding.oldValue
+    typeof binding.value === 'function' &&
+    typeof binding.oldValue === 'object' &&
+    binding.value === binding.oldValue.method
+  ) {
+    return
+  } else if (
+    typeof binding.oldValue === 'function' &&
+    typeof binding.value === 'object' &&
+    binding.oldValue === binding.value.method
+  ) {
+    return
+  } else if (
+    typeof binding.oldValue === 'object' &&
+    typeof binding.value === 'object' &&
+    binding.value.method === binding.oldValue.method
   ) {
     return
   }
