@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <input autofocus v-model="value" type="text" v-on-delete="{method: onDelete, name: 'John'}">
+    <input autofocus v-model="value" type="text" v-on-delete="{ method: onDelete, name: 'Chris', age: 33 }">
     <p>你刚刚删除了 {{count}} 次。</p>
     <p v-if="isParams">指令带的参数是{{ args }}</p>
     <p v-else>指令没有带参数</p>

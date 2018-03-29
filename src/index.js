@@ -102,7 +102,12 @@ const unbind = el => {
 }
 
 const update = (el, binding) => {
-  if (binding.value.method === binding.oldValue.method) {
+  if (binding.value === binding.oldValue) {
+    return
+  } else if (
+    binding.value === binding.oldValue.method ||
+    binding.value.method === binding.oldValue
+  ) {
     return
   }
   bind(el, binding)
