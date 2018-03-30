@@ -41,3 +41,22 @@ Vue.use(VueOnDelete, {
 <!-- 如果自定义了directive name -->
 <input type="text" v-your-custom-name="onDelete">
 ```
+
+也可以使用对象字面量传入自定义方法和可选参数：
+
+```html
+<!-- method为必填项，且值必须为函数，之后的参数为可选 -->
+<input type="text" v-on-delete="{ method: onDelete, name: 'Taylor', age: '29' }"
+```
+
+```js
+onDelete (args) {
+  // DO SOMETHING
+  ......
+  // 除了method还存在其它参数
+  if (args) {
+    console.log(args.name)
+    console.log(args.age)
+  }
+}
+```
