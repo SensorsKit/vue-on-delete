@@ -46,7 +46,7 @@ Vue.use(VueOnDelete, {
 
 ```html
 <!-- method为必填项，且值必须为函数，之后的参数为可选 -->
-<input type="text" v-on-delete="{ method: onDelete, name: 'Taylor', age: '29' }"
+<input type="text" v-on-delete="{ method: onDelete, name: 'Taylor', age: '29' }">
 ```
 
 ```js
